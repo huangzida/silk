@@ -1,6 +1,6 @@
 {
   "name": "@bg-effects/silk",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "type": "module",
   "packageManager": "pnpm@10.25.0",
   "description": "Silk GL Effect - A high-performance silk background effect built with OGL and Vue.",
