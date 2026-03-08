@@ -8,10 +8,14 @@ import SilkEngine from './engine'
 
 // 遵循 polygons 的工程化模板风格
 const props = defineProps<SilkProps & { debug?: boolean, lang?: 'zh-CN' | 'en' }>()
-const emit = defineEmits([])
+// const emit = defineEmits([])
 
 const ConfigContent = defineAsyncComponent(() => import('./ui/ConfigPanel.vue'))
 const configContentRef = ref<any>(null)
+
+const handleUpdateConfig = (newConfig: SilkProps) => {
+  config.value = newConfig
+}
 
 const resolveInitialConfig = () => {
   return defu(props, meta.defaultConfig) as SilkProps
@@ -112,7 +116,7 @@ onUnmounted(() => {
       @randomize="handleRandomize"
     >
       <template #settings>
-        <ConfigContent ref="configContentRef" v-model:config="config" :lang="internalLang" />
+        <ConfigContent ref="configContentRef" :config="config" :lang="internalLang" @update:config="handleUpdateConfig" />
       </template>
     </DebugShell>
   </div>

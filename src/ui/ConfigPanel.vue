@@ -10,6 +10,10 @@ const props = defineProps<{
   lang?: 'zh-CN' | 'en';
 }>();
 
+const emit = defineEmits<{
+  (e: 'update:config', value: SilkProps): void;
+}>();
+
 const activeTab = ref<'basic' | 'colors' | 'visual'>('basic');
 
 defineExpose({ activeTab });
@@ -29,6 +33,13 @@ const subTabs = computed(() => [
   { id: 'colors', label: t('subtabs.colors') },
   { id: 'visual', label: t('subtabs.visual') },
 ]);
+
+const updateConfig = (key: keyof SilkProps, value: any) => {
+  emit('update:config', {
+    ...props.config,
+    [key]: value,
+  });
+};
 </script>
 
 <template>
@@ -46,10 +57,18 @@ const subTabs = computed(() => [
           <div class="flex justify-between items-center px-1">
             <label class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20 group-hover/item:text-white/40 transition-colors">{{ t(`labels.${prop.label}`) }}</label>
             <span class="text-[11px] font-black font-mono text-white/40 group-hover/item:text-blue-400 transition-colors">
-              {{ typeof props.config[prop.id] === 'number' ? props.config[prop.id].toFixed(prop.step < 0.1 ? 2 : 1) : props.config[prop.id] }}
+              {{ typeof props.config[prop.id as keyof SilkProps] === 'number' ? (props.config[prop.id as keyof SilkProps] as number).toFixed(prop.step < 0.1 ? 2 : 1) : props.config[prop.id as keyof SilkProps] }}
             </span>
           </div>
-          <input v-model.number="props.config[prop.id]" type="range" :min="prop.min" :max="prop.max" :step="prop.step" class="w-full accent-blue-500 bg-white/5 hover:bg-white/10 h-1.5 rounded-full appearance-none cursor-pointer transition-all border border-white/5">
+          <input 
+            :value="props.config[prop.id as keyof SilkProps]" 
+            type="range" 
+            :min="prop.min" 
+            :max="prop.max" 
+            :step="prop.step" 
+            class="w-full accent-blue-500 bg-white/5 hover:bg-white/10 h-1.5 rounded-full appearance-none cursor-pointer transition-all border border-white/5"
+            @input="(e: any) => updateConfig(prop.id as keyof SilkProps, Number(e.target.value))"
+          >
         </div>
       </div>
 
@@ -62,7 +81,12 @@ const subTabs = computed(() => [
               <span class="text-[11px] font-black font-mono text-white/40 group-hover/item:text-blue-400 transition-colors">{{ props.config.color }}</span>
             </div>
           </div>
-          <input v-model="props.config.color" type="color" class="w-full h-10 rounded cursor-pointer bg-white/5 border border-white/10">
+          <input 
+            :value="props.config.color" 
+            type="color" 
+            class="w-full h-10 rounded cursor-pointer bg-white/5 border border-white/10"
+            @input="(e: any) => updateConfig('color', e.target.value)"
+          >
         </div>
       </div>
 
@@ -76,10 +100,18 @@ const subTabs = computed(() => [
           <div class="flex justify-between items-center px-1">
             <label class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20 group-hover/item:text-white/40 transition-colors">{{ t(`labels.${prop.label}`) }}</label>
             <span class="text-[11px] font-black font-mono text-white/40 group-hover/item:text-blue-400 transition-colors">
-              {{ typeof props.config[prop.id] === 'number' ? props.config[prop.id].toFixed(prop.step < 0.1 ? 2 : 0) : props.config[prop.id] }}
+              {{ typeof props.config[prop.id as keyof SilkProps] === 'number' ? (props.config[prop.id as keyof SilkProps] as number).toFixed(prop.step < 0.1 ? 2 : 0) : props.config[prop.id as keyof SilkProps] }}
             </span>
           </div>
-          <input v-model.number="props.config[prop.id]" type="range" :min="prop.min" :max="prop.max" :step="prop.step" class="w-full accent-blue-500 bg-white/5 hover:bg-white/10 h-1.5 rounded-full appearance-none cursor-pointer transition-all border border-white/5">
+          <input 
+            :value="props.config[prop.id as keyof SilkProps]" 
+            type="range" 
+            :min="prop.min" 
+            :max="prop.max" 
+            :step="prop.step" 
+            class="w-full accent-blue-500 bg-white/5 hover:bg-white/10 h-1.5 rounded-full appearance-none cursor-pointer transition-all border border-white/5"
+            @input="(e: any) => updateConfig(prop.id as keyof SilkProps, Number(e.target.value))"
+          >
         </div>
       </div>
     </div>
