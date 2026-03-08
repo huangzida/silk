@@ -1,0 +1,23 @@
+{
+  "tabs": {
+    "basic": "Basic"
+  },
+  "subtabs": {
+    "basic": "Basic",
+    "colors": "Colors",
+    "visual": "Visual"
+  },
+  "labels": {
+    "colors": "Colors",
+    "speed": "Speed",
+    "scale": "Scale",
+    "noise": "Noise",
+    "chromatic": "Chromatic",
+    "specular": "Specular",
+    "sheen": "Sheen",
+    "rotation": "Rotation",
+    "brightness": "Brightness",
+    "time": "Time",
+    "resolution": "Resolution"
+  }
+}

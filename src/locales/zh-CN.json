@@ -1,0 +1,23 @@
+{
+  "tabs": {
+    "basic": "基础"
+  },
+  "subtabs": {
+    "basic": "基础",
+    "colors": "颜色",
+    "visual": "视觉"
+  },
+  "labels": {
+    "colors": "颜色",
+    "speed": "速度",
+    "scale": "缩放",
+    "noise": "噪声",
+    "chromatic": "色差",
+    "specular": "高光",
+    "sheen": "光泽",
+    "rotation": "旋转",
+    "brightness": "亮度",
+    "time": "时间",
+    "resolution": "分辨率"
+  }
+}
